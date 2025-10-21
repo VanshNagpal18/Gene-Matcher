@@ -123,8 +123,9 @@ if st.button("🔬 Run Matching"):
 # ---- Footer ----
 st.markdown("""
 ---
-👩‍💻 *Project by Vansh Nagpal*  
-Built using [Streamlit](https://streamlit.io/) for educational purposes.  
+👩‍💻 **Project by Vansh Nagpal ** 
+© 2025 Built for educational purposes.  
 """)
+
 
 
