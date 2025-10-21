@@ -166,25 +166,25 @@ if st.button("🔬 Run Matching"):
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
         # Generate shareable link (temporary) with safe fallbacks
-        server_addr = st.get_option("server.address")
-        server_port = st.get_option("server.port")
-        host = server_addr or "localhost"
-        port = server_port or 8501
+        # server_addr = st.get_option("server.address")
+        # server_port = st.get_option("server.port")
+        # host = server_addr or "localhost"
+        # port = server_port or 8501
 
         # Ensure scheme is present
-        if not str(host).startswith(("http://", "https://")):
-            host = f"http://{host}"
+        # if not str(host).startswith(("http://", "https://")):
+        #     host = f"http://{host}"
 
-        try:
-            url = f"{host}:{port}/?pattern={pattern}"
-        except Exception:
-            url = f"http://localhost:8501/?pattern={pattern}"
+        # try:
+        #     url = f"{host}:{port}/?pattern={pattern}"
+        # except Exception:
+        #     url = f"http://localhost:8501/?pattern={pattern}"
 
-        st.markdown("🔗 *Shareable Results Link (copy manually):*")
-        st.code(url, language="text")
+        # st.markdown("🔗 *Shareable Results Link (copy manually):*")
+        # st.code(url, language="text")
 
-    else:
-        st.warning("Please upload or paste a DNA sequence and enter a pattern.")
+    # else:
+    #     st.warning("Please upload or paste a DNA sequence and enter a pattern.")
 
 # ---- Footer ----
 st.markdown("""
@@ -192,4 +192,5 @@ st.markdown("""
 👩‍💻 *Project by Vansh Nagpal*  
 Built using [Streamlit](https://streamlit.io/) for educational purposes.  
 """)
+
 
