@@ -8,16 +8,47 @@ import time
 
 st.set_page_config(page_title="🧬 Gene Matcher", layout="wide")
 
-st.title("🧬 Gene Matching Platform")
+# ---- Custom CSS Styling ----
 st.markdown("""
-Compare *KMP* and *Boyer–Moore* algorithms for DNA sequence pattern matching.
+    <style>
+    .main {
+        background-color: #f0f6ff;
+        border-radius: 12px;
+        padding: 25px;
+    }
+    header {
+        background-color: #004aad;
+        padding: 1rem;
+        border-radius: 0 0 15px 15px;
+        color: white;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    footer {
+        background-color: #004aad;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 15px 15px 0 0;
+        margin-top: 25px;
+        font-size: 16px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# ---- Header ----
+st.markdown("<header>🧬 Gene Matching Platform</header>", unsafe_allow_html=True)
+
+st.markdown("""
+Compare **KMP** and **Boyer–Moore** algorithms for DNA sequence pattern matching.  
 Upload your DNA data or paste directly, choose algorithm, and analyze efficiently.
 """)
 
 # ---- Sidebar ----
 st.sidebar.header("🔧 Settings")
 algorithm_choice = st.sidebar.selectbox("Select Algorithm", ["KMP", "Boyer–Moore", "Both"])
-st.sidebar.info("Developed by Vansh Nagpal | DAA Project")
+st.sidebar.info("Developed by Vansh Nagpal |     DAA Project")
 
 # ---- DNA Sequence Input ----
 uploaded_file = st.file_uploader("📤 Upload DNA Sequence File (TXT/FASTA)", type=["txt", "fasta"])
@@ -89,21 +120,23 @@ if st.button("🔬 Run Matching"):
     if dna_sequence and pattern:
         st.subheader("Results")
 
-        results = []  # ✅ Proper indentation here
+        results = []
 
         if algorithm_choice in ["KMP", "Both"]:
-            start = time.time()
+            start = time.perf_counter()
             matches = kmp_search(dna_sequence, pattern)
-            end = time.time()
-            results.append(["KMP", len(matches), end - start])
-            st.success(f"KMP found {len(matches)} matches in {end - start:.4f} seconds")
+            end = time.perf_counter()
+            elapsed = end - start
+            results.append(["KMP", len(matches), elapsed])
+            st.success(f"KMP found {len(matches)} matches in {elapsed:.6f} seconds")
 
         if algorithm_choice in ["Boyer–Moore", "Both"]:
-            start = time.time()
+            start = time.perf_counter()
             matches = boyer_moore_search(dna_sequence, pattern)
-            end = time.time()
-            results.append(["Boyer–Moore", len(matches), end - start])
-            st.success(f"Boyer–Moore found {len(matches)} matches in {end - start:.4f} seconds")
+            end = time.perf_counter()
+            elapsed = end - start
+            results.append(["Boyer–Moore", len(matches), elapsed])
+            st.success(f"Boyer–Moore found {len(matches)} matches in {elapsed:.6f} seconds")
 
         # Display comparison table
         df = pd.DataFrame(results, columns=["Algorithm", "Matches Found", "Execution Time (s)"])
@@ -113,23 +146,17 @@ if st.button("🔬 Run Matching"):
         csv_data = df.to_csv(index=False).encode("utf-8")
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
-        # Generate shareable link
-        # st.markdown("🔗 *Shareable Results Link (copy manually):*")
-        # st.code(st.get_option("server.address") + f"?pattern={pattern}", language="text")
+        # Generate shareable link (placeholder)
+        st.markdown("🔗 **Shareable Results Link (example):**")
+        st.code("https://gene-matcher.streamlit.app", language="text")
 
     else:
         st.warning("Please upload or paste a DNA sequence and enter a pattern.")
-        
+
 # ---- Footer ----
 st.markdown("""
----
-👩‍💻 Project by Vansh Nagpal 
-
-© 2025 Built for educational purposes.  
-""")
-
-
-
-
-
-
+<footer>
+    <h5>👩‍💻 Project by Vansh Nagpal</h5>
+    <p>© 2025 Built for educational purposes. </p>
+</footer>
+""", unsafe_allow_html=True)
