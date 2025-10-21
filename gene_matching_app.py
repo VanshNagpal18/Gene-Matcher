@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import time
@@ -9,7 +8,7 @@ import time
 
 st.set_page_config(page_title="🧬 Gene Matcher", layout="wide")
 
-st.title("🧬 Gene Matching Web App")
+st.title("🧬 Gene Matching Platform")
 st.markdown("""
 Compare *KMP* and *Boyer–Moore* algorithms for DNA sequence pattern matching.
 Upload your DNA data or paste directly, choose algorithm, and analyze efficiently.
@@ -48,8 +47,6 @@ def compute_lps(pattern):
     return lps
 
 def kmp_search(text, pattern):
-    if not pattern:
-        return []
     lps = compute_lps(pattern)
     i = j = 0
     matches = []
@@ -62,8 +59,7 @@ def kmp_search(text, pattern):
             j = lps[j - 1]
         elif i < len(text) and pattern[j] != text[i]:
             j = lps[j - 1] if j != 0 else 0
-            if j == 0:
-                i += 1
+            if j == 0: i += 1
     return matches
 
 def bad_char_heuristic(pattern):
@@ -73,8 +69,6 @@ def bad_char_heuristic(pattern):
     return bad_char
 
 def boyer_moore_search(text, pattern):
-    if not pattern:
-        return []
     bad_char = bad_char_heuristic(pattern)
     m, n = len(pattern), len(text)
     matches = []
@@ -94,7 +88,7 @@ def boyer_moore_search(text, pattern):
 if st.button("🔬 Run Matching"):
     if dna_sequence and pattern:
         st.subheader("Results")
-        results = []
+      results = []
         if algorithm_choice in ["KMP", "Both"]:
             start = time.time()
             matches = kmp_search(dna_sequence, pattern)
@@ -117,74 +111,12 @@ if st.button("🔬 Run Matching"):
         csv_data = df.to_csv(index=False).encode("utf-8")
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
-        # Generate shareable link (temporary) with safe fallbacks
-        server_addr = st.get_option("server.address")
-        server_port = st.get_option("server.port")
-        host = server_addr or "localhost"
-        port = server_port or 8501
-
-        # Ensure scheme is present
-        if not str(host).startswith(("http://", "https://")):
-            host = f"http://{host}"
-
-        try:
-            url = f"{host}:{port}/?pattern={pattern}"
-        except Exception:
-            url = f"http://localhost:8501/?pattern={pattern}"
-
+        # Generate shareable link (temporary)
         st.markdown("🔗 *Shareable Results Link (copy manually):*")
-        st.code(url, language="text")
+        st.code(st.get_option("server.address") + f"?pattern={pattern}", language="text")
 
     else:
         st.warning("Please upload or paste a DNA sequence and enter a pattern.")
-
-# ---- Main Logic ----
-if st.button("🔬 Run Matching"):
-    if dna_sequence and pattern:
-        st.subheader("Results")
-        results = []
-        if algorithm_choice in ["KMP", "Both"]:
-            start = time.time()
-            matches = kmp_search(dna_sequence, pattern)
-            end = time.time()
-            results.append(["KMP", len(matches), end - start])
-            st.success(f"KMP found {len(matches)} matches in {end - start:.4f} seconds")
-
-        if algorithm_choice in ["Boyer–Moore", "Both"]:
-            start = time.time()
-            matches = boyer_moore_search(dna_sequence, pattern)
-            end = time.time()
-            results.append(["Boyer–Moore", len(matches), end - start])
-            st.success(f"Boyer–Moore found {len(matches)} matches in {end - start:.4f} seconds")
-
-        # Display comparison table
-        df = pd.DataFrame(results, columns=["Algorithm", "Matches Found", "Execution Time (s)"])
-        st.table(df)
-
-        # Save results
-        csv_data = df.to_csv(index=False).encode("utf-8")
-        st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
-
-        # Generate shareable link (temporary) with safe fallbacks
-        # server_addr = st.get_option("server.address")
-        # server_port = st.get_option("server.port")
-        # host = server_addr or "localhost"
-        # port = server_port or 8501
-
-        # Ensure scheme is present
-        # if not str(host).startswith(("http://", "https://")):
-        #     host = f"http://{host}"
-
-        # try:
-        #     url = f"{host}:{port}/?pattern={pattern}"
-        # except Exception:
-        #     url = f"http://localhost:8501/?pattern={pattern}"
-
-        # st.markdown("🔗 *Shareable Results Link (copy manually):*")
-        # st.code(url, language="text")
-
-    # else:
-    #     st.warning("Please upload or paste a DNA sequence and enter a pattern.")
 
 # ---- Footer ----
 st.markdown("""
@@ -192,5 +124,3 @@ st.markdown("""
 👩‍💻 *Project by Vansh Nagpal*  
 Built using [Streamlit](https://streamlit.io/) for educational purposes.  
 """)
-
-
