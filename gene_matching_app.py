@@ -114,8 +114,8 @@ if st.button("🔬 Run Matching"):
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
         # Generate shareable link
-        st.markdown("🔗 *Shareable Results Link (copy manually):*")
-        st.code(st.get_option("server.address") + f"?pattern={pattern}", language="text")
+        # st.markdown("🔗 *Shareable Results Link (copy manually):*")
+        # st.code(st.get_option("server.address") + f"?pattern={pattern}", language="text")
 
     else:
         st.warning("Please upload or paste a DNA sequence and enter a pattern.")
@@ -126,4 +126,5 @@ st.markdown("""
 👩‍💻 *Project by Vansh Nagpal*  
 Built using [Streamlit](https://streamlit.io/) for educational purposes.  
 """)
+
 
