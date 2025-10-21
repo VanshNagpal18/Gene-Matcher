@@ -24,7 +24,6 @@ st.markdown("""
         text-align: center;
         font-size: 28px;
         font-weight: bold;
-        height: 6.2rem;
     }
     footer {
         background-color: #004aad;
@@ -164,6 +163,7 @@ st.markdown("""
     <p>© 2025   Built for educational purposes.</p>
 </footer>
 """, unsafe_allow_html=True)
+
 
 
 
