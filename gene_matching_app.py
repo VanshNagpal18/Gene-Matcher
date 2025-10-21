@@ -88,7 +88,9 @@ def boyer_moore_search(text, pattern):
 if st.button("🔬 Run Matching"):
     if dna_sequence and pattern:
         st.subheader("Results")
-      results = []
+
+        results = []  # ✅ Proper indentation here
+
         if algorithm_choice in ["KMP", "Both"]:
             start = time.time()
             matches = kmp_search(dna_sequence, pattern)
@@ -111,16 +113,17 @@ if st.button("🔬 Run Matching"):
         csv_data = df.to_csv(index=False).encode("utf-8")
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
-        # Generate shareable link (temporary)
+        # Generate shareable link
         st.markdown("🔗 *Shareable Results Link (copy manually):*")
         st.code(st.get_option("server.address") + f"?pattern={pattern}", language="text")
 
     else:
         st.warning("Please upload or paste a DNA sequence and enter a pattern.")
-
+        
 # ---- Footer ----
 st.markdown("""
 ---
 👩‍💻 *Project by Vansh Nagpal*  
 Built using [Streamlit](https://streamlit.io/) for educational purposes.  
 """)
+
