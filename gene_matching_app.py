@@ -29,12 +29,14 @@ st.markdown("""
         background-color: #004aad;
         color: white;
         text-align: center;
-        h5: white;
         padding: 1rem;
         border-radius: 15px 15px 0 0;
         margin-top: 25px;
         font-size: 16px;
     }
+ h5 {
+  color: white;
+}
     </style>
 """, unsafe_allow_html=True)
 
@@ -161,5 +163,6 @@ st.markdown("""
     <p>© 2025 Built for educational purposes. </p>
 </footer>
 """, unsafe_allow_html=True)
+
 
 
