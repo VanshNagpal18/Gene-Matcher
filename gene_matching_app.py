@@ -124,8 +124,10 @@ if st.button("🔬 Run Matching"):
 st.markdown("""
 ---
 👩‍💻 Project by Vansh Nagpal 
+
 © 2025 Built for educational purposes.  
 """)
+
 
 
 
