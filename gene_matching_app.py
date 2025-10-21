@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import time
@@ -47,6 +48,8 @@ def compute_lps(pattern):
     return lps
 
 def kmp_search(text, pattern):
+    if not pattern:
+        return []
     lps = compute_lps(pattern)
     i = j = 0
     matches = []
@@ -59,7 +62,8 @@ def kmp_search(text, pattern):
             j = lps[j - 1]
         elif i < len(text) and pattern[j] != text[i]:
             j = lps[j - 1] if j != 0 else 0
-            if j == 0: i += 1
+            if j == 0:
+                i += 1
     return matches
 
 def bad_char_heuristic(pattern):
@@ -69,6 +73,8 @@ def bad_char_heuristic(pattern):
     return bad_char
 
 def boyer_moore_search(text, pattern):
+    if not pattern:
+        return []
     bad_char = bad_char_heuristic(pattern)
     m, n = len(pattern), len(text)
     matches = []
@@ -88,7 +94,7 @@ def boyer_moore_search(text, pattern):
 if st.button("🔬 Run Matching"):
     if dna_sequence and pattern:
         st.subheader("Results")
-      results = []
+        results = []
         if algorithm_choice in ["KMP", "Both"]:
             start = time.time()
             matches = kmp_search(dna_sequence, pattern)
