@@ -51,7 +51,7 @@ Upload your DNA data or paste directly, choose algorithm, and analyze efficientl
 # ---- Sidebar ----
 st.sidebar.header("🔧 Settings")
 algorithm_choice = st.sidebar.selectbox("Select Algorithm", ["KMP", "Boyer–Moore", "Both"])
-st.sidebar.info("Developed by Vansh Nagpal |   DAA Project")
+st.sidebar.info("Developed by Vansh Nagpal | GGSIPU  |  DAA Project")
 
 # ---- DNA Sequence Input ----
 uploaded_file = st.file_uploader("📤 Upload DNA Sequence File (TXT/FASTA)", type=["txt", "fasta"])
@@ -160,10 +160,11 @@ if st.button("🔬 Run Matching"):
 # ---- Footer ----
 st.markdown("""
 <footer>
-    <h5>👩‍💻 Project by Vansh Nagpal</h5>
-    <p>© 2025   Built for educational purposes.</p>
+    <h5>👨‍💻 Project by Vansh Nagpal</h5>
+    <p>© 2025  Built for educational purposes.</p>
 </footer>
 """, unsafe_allow_html=True)
+
 
 
 
