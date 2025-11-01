@@ -129,20 +129,21 @@ if st.button("🔬 Run Matching"):
             start = time.perf_counter()
             matches = kmp_search(dna_sequence, pattern)
             end = time.perf_counter()
-            elapsed = end - start
-            results.append(["KMP", len(matches), elapsed])
-            st.success(f"KMP found {len(matches)} matches in {elapsed:.6f} seconds")
+            elapsed_kmp = end - start
+            results.append(["KMP", len(matches), round(elapsed_kmp, 6)])
+            st.success(f"KMP found {len(matches)} matches in {elapsed_kmp:.6f} seconds")
 
         if algorithm_choice in ["Boyer–Moore", "Both"]:
             start = time.perf_counter()
             matches = boyer_moore_search(dna_sequence, pattern)
             end = time.perf_counter()
-            elapsed = end - start
-            results.append(["Boyer–Moore", len(matches), elapsed])
-            st.success(f"Boyer–Moore found {len(matches)} matches in {elapsed:.6f} seconds")
+            elapsed_bm = end - start
+            results.append(["Boyer–Moore", len(matches), round(elapsed_bm, 6)])
+            st.success(f"Boyer–Moore found {len(matches)} matches in {elapsed_bm:.6f} seconds")
 
-        # Display comparison table
+        # Display comparison table with exact same values
         df = pd.DataFrame(results, columns=["Algorithm", "Matches Found", "Execution Time (s)"])
+        df["Execution Time (s)"] = df["Execution Time (s)"].apply(lambda x: f"{x:.6f}")
         st.table(df)
 
         # Save results
@@ -150,8 +151,8 @@ if st.button("🔬 Run Matching"):
         st.download_button("💾 Download Results as CSV", csv_data, "gene_results.csv", "text/csv")
 
         # Generate shareable link (placeholder)
-        st.markdown("🔗 **Shareable Results Link (example):**")
-        st.code("https://gene-matcher.streamlit.app", language="text")
+        st.markdown("🔗 *Shareable Results Link :*")
+        st.code("https://gene-matcher-bkqsvjducyvv3rdy2lhsay.streamlit.app", language="text")
 
     else:
         st.warning("Please upload or paste a DNA sequence and enter a pattern.")
@@ -163,6 +164,7 @@ st.markdown("""
     <p>© 2025   Built for educational purposes.</p>
 </footer>
 """, unsafe_allow_html=True)
+
 
 
 
