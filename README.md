@@ -11,7 +11,7 @@ An interactive web application built with *Streamlit* to analyze DNA sequences u
 - Compare execution time and efficiency
 - Download results as CSV
 - Generate shareable result links
-- responsive UI (Streamlit)
+- responsive UI (Streamlit).
 
 ---
 
